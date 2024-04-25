@@ -36,7 +36,7 @@ function closeModal() {
 }
 
 
-/**** Events listener ****/
+/**** Event listeners ****/
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
