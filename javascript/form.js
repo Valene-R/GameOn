@@ -5,7 +5,8 @@
 // DOM Elements
 const form = document.querySelector("form"); 
 const firstNameInput = document.getElementById("first"); 
-const lastNameInput = document.getElementById("last"); 
+const lastNameInput = document.getElementById("last");
+const emailInput = document.getElementById("email");
 
 
 /////
@@ -33,6 +34,14 @@ function validate() {
     isValid = false;
   } else {
     clearError(lastNameInput);
+  }
+
+  // Validate the email address
+  if (!emailInput.value.trim() || !isValidEmail(emailInput.value)) {
+    setError(emailInput, "Veuillez entrer une adresse électronique valide.");
+    isValid = false;
+  } else {
+    clearError(emailInput);
   }
 
   return isValid;
@@ -64,13 +73,28 @@ function clearError(input) {
   formData.removeAttribute("data-error-visible");
 }
   
-  
+/**
+ * Validate an email format using regex
+ * @param {string} email The email to check
+ * @returns {boolean} True if the format is correct, else false 
+ */
+function isValidEmail(email) {
+  // Define a regex pattern for a valid email format
+  const regexEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  // Use the test() method to check if the email matches the regex pattern
+  return regexEmail.test(email);
+}
+
+
 /////
 // EVENT LISTENERS
 /////
   
 // Event listener for form submission
 form.addEventListener("submit", (e) => {
+  // Use the toLowerCase() method to convert email to lowercase for validation
+  emailInput.value = emailInput.value.toLowerCase();
+
   if (!validate()) {
     e.preventDefault();
     return;
