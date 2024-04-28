@@ -23,6 +23,7 @@ function validate() {
   let isValid = true;
   const participantAge = calculateAge(new Date(birthdateInput.value));
   const minimumAge = 18; // Define minimum age for inscription
+  const maximumAge = 100; // Maximum age accepted to prevent input errors
   
   // Validate the first name: field not empty and minimum 2 characters
   if (!firstNameInput.value.trim() || firstNameInput.value.length < 2) {
@@ -54,6 +55,9 @@ function validate() {
     isValid = false;
   } else if (participantAge < minimumAge) {
     setError(birthdateInput, `Vous devez avoir au moins ${minimumAge} ans pour vous inscrire.`);
+    isValid = false;
+  } else if (participantAge > maximumAge) {
+    setError(birthdateInput, "Veuillez vérifier votre date de naissance, elle semble incorrecte.");
     isValid = false;
   } else {
     clearError(birthdateInput);
