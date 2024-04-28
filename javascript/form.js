@@ -7,6 +7,8 @@ const form = document.querySelector("form");
 const firstNameInput = document.getElementById("first"); 
 const lastNameInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
+const birthdateInput = document.getElementById("birthdate");
+
 
 
 /////
@@ -19,6 +21,8 @@ const emailInput = document.getElementById("email");
  */
 function validate() {
   let isValid = true;
+  const participantAge = calculateAge(new Date(birthdateInput.value));
+  const minimumAge = 18; // Define minimum age for inscription
   
   // Validate the first name: field not empty and minimum 2 characters
   if (!firstNameInput.value.trim() || firstNameInput.value.length < 2) {
@@ -42,6 +46,17 @@ function validate() {
     isValid = false;
   } else {
     clearError(emailInput);
+  }
+
+  // Validate the birthdate: fied not empty and minimum age
+  if (!birthdateInput.value.trim()) {
+    setError(birthdateInput, "Vous devez entrer votre date de naissance.");
+    isValid = false;
+  } else if (participantAge < minimumAge) {
+    setError(birthdateInput, `Vous devez avoir au moins ${minimumAge} ans pour vous inscrire.`);
+    isValid = false;
+  } else {
+    clearError(birthdateInput);
   }
 
   return isValid;
@@ -84,6 +99,30 @@ function isValidEmail(email) {
   // Use the test() method to check if the email matches the regex pattern
   return regexEmail.test(email);
 }
+
+/**
+ * Calculate the age based on birthdate
+ * @param {Date} birthDate The birthdate for age calculation
+ * @returns {number} The calculated age
+ */
+function calculateAge(birthDate) {
+  // Create a new Date object containing today's date
+  const today = new Date();
+  // Convert birthDate to a Date object 
+  const birth = new Date(birthDate);
+  // Use getFullYear() to get the year and calculate the age
+  let calculatedAge = today.getFullYear() - birth.getFullYear();
+  // Use getMonth() to get the month and calculate the month difference
+  const monthDifference = today.getMonth() - birth.getMonth();
+
+  // Adjust age if the current date is before the birthdate
+  if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birth.getDate())) {
+    calculatedAge--; // Decrement the age (subtract 1) if the birthday hasn't yet passed this year
+  }
+
+  return calculatedAge; // Return the current age
+}
+
 
 
 /////
