@@ -9,7 +9,8 @@ const lastNameInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
 const birthdateInput = document.getElementById("birthdate");
 const tournamentsInput = document.getElementById("quantity");
-
+const cityRadios = document.querySelectorAll('input[name="location"]');
+const formContainers = document.querySelectorAll(".formData");
 
 
 /////
@@ -79,6 +80,20 @@ function validate() {
     isValid = false;
   } else {
     clearError(tournamentsInput); 
+  }
+
+  // Validate the selected city for tournament
+  // Convert cityRadios to array and check if a radio button is checked
+  const citySelected = Array.from(cityRadios).some(radio => radio.checked);
+  // Add 'id' to 6th container, index 5 of array
+  formContainers[5].id = "radio-group";
+  const citiesContainer = document.getElementById("radio-group");
+
+  if (!citySelected) {
+    setError(citiesContainer, "Vous devez sélectionner une ville.");
+    isValid = false;
+  } else {
+    clearError(citiesContainer);
   }
 
   return isValid;
