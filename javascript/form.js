@@ -8,6 +8,7 @@ const firstNameInput = document.getElementById("first");
 const lastNameInput = document.getElementById("last");
 const emailInput = document.getElementById("email");
 const birthdateInput = document.getElementById("birthdate");
+const tournamentsInput = document.getElementById("quantity");
 
 
 
@@ -24,6 +25,11 @@ function validate() {
   const participantAge = calculateAge(new Date(birthdateInput.value));
   const minimumAge = 18; // Define minimum age for inscription
   const maximumAge = 100; // Maximum age accepted to prevent input errors
+
+  // Parse the value of the input field as an integer using base 10 (numeric system)
+  const tournamentsCount = parseInt(tournamentsInput.value, 10);
+  // Regex to check if the input value contains only digits
+  const regexNotDecimal = /^\d+$/;
   
   // Validate the first name: field not empty and minimum 2 characters
   if (!firstNameInput.value.trim() || firstNameInput.value.length < 2) {
@@ -61,6 +67,18 @@ function validate() {
     isValid = false;
   } else {
     clearError(birthdateInput);
+  }
+
+  // Validate the number of tournaments already participated: integer between 0 and 99
+  // Check if the input value is an integer using a regex to exclude decimals
+  if (!regexNotDecimal.test(tournamentsInput.value)) { 
+    setError(tournamentsInput, "Veuillez entrer un nombre entier, sans décimales.");
+    isValid = false;
+  } else if (tournamentsCount < 0 || tournamentsCount > 99) {
+    setError(tournamentsInput, "Veuillez entrer un nombre entier entre 0 et 99.");
+    isValid = false;
+  } else {
+    clearError(tournamentsInput); 
   }
 
   return isValid;
