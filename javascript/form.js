@@ -11,6 +11,7 @@ const birthdateInput = document.getElementById("birthdate");
 const tournamentsInput = document.getElementById("quantity");
 const cityRadios = document.querySelectorAll('input[name="location"]');
 const formContainers = document.querySelectorAll(".formData");
+const conditionsCheckBox = document.getElementById("checkbox1");
 
 
 /////
@@ -96,6 +97,14 @@ function validate() {
     clearError(citiesContainer);
   }
 
+  // Validate the conditions checkbox
+  if (!conditionsCheckBox.checked) {
+    setError(conditionsCheckBox, "Vous devez accepter les conditions d'utilisation.");
+    isValid = false;
+  } else {
+    clearError(conditionsCheckBox);
+  }
+
   return isValid;
 }
   
@@ -168,11 +177,12 @@ function calculateAge(birthDate) {
   
 // Event listener for form submission
 form.addEventListener("submit", (e) => {
+  e.preventDefault();
   // Use the toLowerCase() method to convert email to lowercase for validation
   emailInput.value = emailInput.value.toLowerCase();
 
-  if (!validate()) {
-    e.preventDefault();
-    return;
-  }
+  if (validate()) {
+    showConfirmationModal()
+    form.reset();
+  } 
 });
