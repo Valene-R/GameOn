@@ -12,6 +12,8 @@ const tournamentsInput = document.getElementById("quantity");
 const cityRadios = document.querySelectorAll('input[name="location"]');
 const formContainers = document.querySelectorAll(".formData");
 const conditionsCheckBox = document.getElementById("checkbox1");
+const newsEventsCheckBox = document.getElementById("checkbox2");
+
 
 
 /////
@@ -169,7 +171,26 @@ function calculateAge(birthDate) {
   return calculatedAge; // Return the current age
 }
 
+/**
+ * Display a toast notification on the screen for a specified duration
+ * @param {string} message The message to display in the toast
+ * @param {number} duration The duration to show the toast in milliseconds. Default is 3000 ms
+ */
+function showToast(message, duration = 3000) {
+  const toaster = document.createElement("div");
+  toaster.className = "toaster";
+  toaster.innerText = message;
+  document.body.appendChild(toaster);
 
+  // Set a timeout to initiate the fade-out after the specified duration
+  setTimeout(() => {
+    toaster.classList.add("fade-out");
+    // Remove the toast from the DOM after the fade-out transition ends
+    toaster.addEventListener("transitionend", () => 
+      toaster.remove()
+    );
+  }, duration);
+}
 
 /////
 // EVENT LISTENERS
@@ -182,7 +203,10 @@ form.addEventListener("submit", (e) => {
   emailInput.value = emailInput.value.toLowerCase();
 
   if (validate()) {
-    showConfirmationModal()
+    if (newsEventsCheckBox.checked) {
+      showToast("Vous serez prévenu(e) des prochains événements !");
+    }
+    showConfirmationModal();
     form.reset();
   } 
 });
