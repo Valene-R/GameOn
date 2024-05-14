@@ -52,10 +52,17 @@ function toggleNav() {
     mainContent.classList.add("overlay-effect"); // Add a visual effect to the main content
     mainContent.style.marginTop = `${navHeight}px`; // Adjust the margin based on the height of the navigation
   } else {
-    document.body.classList.remove("no-scroll");
-    mainContent.classList.remove("overlay-effect");
-    mainContent.style.marginTop = "0"; // Reset the margin of the main content to zero
+    resetNavigation(); // Clean up styles applied for mobile view
   }
+}
+
+/**
+ * Reset navigation styles when window is resized on larger screens
+ */
+function resetNavigation() {
+  document.body.classList.remove("no-scroll");
+  mainContent.classList.remove("overlay-effect");
+  mainContent.style.marginTop = "0"; // Reset the margin of the main content to zero
 }
 
 /**
@@ -123,3 +130,14 @@ confirmationModal.addEventListener("click", (e) => {
     closeConfirmationModal();
   }
 });
+
+// Window resize events to adjust navigation for larger screens
+window.addEventListener("resize", () => {
+  // Check if the window is above or equal to a certain width: 768px
+  if (window.innerWidth >= 768 && nav.classList.contains("responsive")) {
+      nav.classList.remove("responsive");
+      iconBurger.classList.remove("toggle-nav");
+      resetNavigation();
+    }
+  }
+);
