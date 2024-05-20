@@ -10,8 +10,8 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
 
     <link rel="stylesheet" href="css/modal.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script defer src="javascript/nav.js"></script>
     <script defer src="javascript/modal.js"></script>
     <script defer src="javascript/form.js"></script>
   </head>
@@ -107,6 +107,7 @@
                   type="email"
                   id="email"
                   name="email"
+                  autocomplete="off"
                 ><br>
               </div>
 
@@ -122,7 +123,7 @@
 
               <div class="formData">
                 <label for="quantity">À combien de tournois GameOn avez-vous déjà participé ?</label><br>
-                <input type="number" class="text-control" id="quantity" name="quantity" min="0" max="99">
+                <input type="number" class="text-control" id="quantity" name="quantity">
               </div>
 
               <div class="formData">

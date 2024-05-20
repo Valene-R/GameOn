@@ -3,15 +3,10 @@
 /////
 
 // DOM Elements
-const nav = document.getElementById("myTopnav");
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector(".close");
 const modalContent = document.querySelector(".modal-body");
-const navList = document.querySelector(".nav-list");
-const iconBurger = document.querySelector(".icon");
-const mainContent = document.querySelector('main');
 
 // Create new DOM elements for confirmation modal
 const confirmationModal = document.createElement("div");
@@ -40,32 +35,6 @@ document.body.appendChild(confirmationModal);  // Add the confirmation modal at 
 /////
 
 /**
- * Toggle mobile navigation visibility and manage burger menu interactions
- */ 
-function toggleNav() {
-  nav.classList.toggle("responsive");
-  const isOpen = iconBurger.classList.toggle("toggle-nav");
-  
-  if (isOpen) {
-    const navHeight = navList.offsetHeight; // Calculate the height of the navigation list
-    document.body.classList.add("no-scroll"); // Disable scrolling on the body
-    mainContent.classList.add("overlay-effect"); // Add a visual effect to the main content
-    mainContent.style.marginTop = `${navHeight}px`; // Adjust the margin based on the height of the navigation
-  } else {
-    resetNavigation(); // Clean up styles applied for mobile view
-  }
-}
-
-/**
- * Reset navigation styles when window is resized on larger screens
- */
-function resetNavigation() {
-  document.body.classList.remove("no-scroll");
-  mainContent.classList.remove("overlay-effect");
-  mainContent.style.marginTop = "0"; // Reset the margin of the main content to zero
-}
-
-/**
  * launch modal form
  */ 
 function launchModal() {
@@ -78,7 +47,7 @@ function launchModal() {
 }
 
 /**
- * Close modal
+ * Close modal form
  */
 function closeModal() {
   modalbg.style.display = "none";
@@ -110,34 +79,23 @@ function closeConfirmationModal() {
 /////
 
 // launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+modalBtn.forEach((btn) => {
+  btn.addEventListener("click", launchModal)
+});
 
-// Close the modal
+// Close the modal form 
 closeBtn.addEventListener("click", () => {
   closeModal(); 
   form.reset(); // Reset the form fields
+  // Iterate each input field to clear any existing error messages
   inputs.forEach(input => {
-    clearError(input); // Clear any error messages
+    clearError(input); // Clear the error message associated with this input
   });
 });
-
-// Toggle the navigation
-iconBurger.addEventListener("click", toggleNav);
 
 // Close the confirmation modal if a button with '.close' or '.button' is clicked
 confirmationModal.addEventListener("click", (e) => {
   if (e.target.classList.contains("close") || e.target.classList.contains("button")) {
-    closeConfirmationModal();
+    closeConfirmationModal(); // Close the modal if the condition is met
   }
 });
-
-// Window resize events to adjust navigation for larger screens
-window.addEventListener("resize", () => {
-  // Check if the window is above or equal to a certain width: 768px
-  if (window.innerWidth >= 768 && nav.classList.contains("responsive")) {
-      nav.classList.remove("responsive");
-      iconBurger.classList.remove("toggle-nav");
-      resetNavigation();
-    }
-  }
-);
