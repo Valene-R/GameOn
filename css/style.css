@@ -111,8 +111,7 @@ span {
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  margin: 3.5%;
-  margin-right: 0;
+  margin: 52px 0 74px 52px;
 }
 
 .topnav a {
@@ -544,6 +543,10 @@ footer {
 
 /* Medium devices (tablets, less/equal than 1024px) */
 @media screen and (max-width: 1024px) {
+  .topnav {
+    margin-bottom: 45px;
+  }
+
   .topnav a {
     padding: 11px 6px;
     font-size: 14px;

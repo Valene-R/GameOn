@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>GameOn - Réservation</title>
-    <meta name="description" content="">
+    <meta name="description" content="Inscrivez-vous pour le prochain événement GameOn, un marathon national de jeux vidéos.">
 
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon-16x16.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
@@ -76,7 +76,7 @@
             <form
               name="reserve"
               action="index.html"
-              method="get"
+              method="post"
               novalidate 
             >
               <div class="formData">
@@ -86,7 +86,6 @@
                   type="text"
                   id="first"
                   name="first"
-                  minlength="2"
                 ><br>
               </div>
 
@@ -215,7 +214,7 @@
                 </label>
                 <br>
               </div>
-              <input class="btn-submit button" type="submit" value="C'est parti">
+              <button class="btn-submit button" type="submit" aria-label="Soumettre le formulaire">C'est parti</button>
             </form>
           </div>
         </div>
